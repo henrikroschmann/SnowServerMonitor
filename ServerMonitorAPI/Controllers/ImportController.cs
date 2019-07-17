@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HelperLibrary.Models;
+using HelperLibrary;
 
 namespace ServerMonitorAPI.Controllers
 {
@@ -21,11 +22,16 @@ namespace ServerMonitorAPI.Controllers
 
             var tasks = new[]
             {
-                Task.Run(() => ImportService.Import.Process(serverLogs))
+                Task.Run(() => ProcessingData(serverLogs))
             };            
 
             return Ok("ok");            
         }       
+
+        private void ProcessingData(List<ServerLog> logs)
+        {
+            Database.DBInsertData.InsertDataSet(Tools.ConvertToDataTable(logs));            
+        }
 
     }
 }
