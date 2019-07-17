@@ -8,7 +8,6 @@ begin
 	select	s.ServerName, 
 			s.Date, 
 			s.Service,
-			s.Path,
 			s.LineNumber,
 			s.Line
 	from dbo.ServerLog s

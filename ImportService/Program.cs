@@ -5,15 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HelperLibrary;
+using System.Data;
+using System.ComponentModel;
 
 namespace ImportService
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
             List<Mapper.ServerLogMapper> Logs = new List<Mapper.ServerLogMapper>();
 
+            // TODO: Filename should not be hardcoded
             using (TextReader reader = File.OpenText("SUPMAINT03.csv"))
             {
                 CsvReader csv = new CsvReader(reader);
@@ -25,11 +29,8 @@ namespace ImportService
                     Logs.Add(Record);
                 }
             }
-
-            foreach (var item in Logs)
-            {
-                Console.WriteLine(item);
-            }
+            Database.InsertDataSet(HelperLibrary.Tools.ConvertToDataTable(Logs));                       
+           
         }
     }
 }

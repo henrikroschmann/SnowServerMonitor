@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ServerMonitor
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
+            Database.DBGetData.MapMultipleObjects();
         }
     }
 }
