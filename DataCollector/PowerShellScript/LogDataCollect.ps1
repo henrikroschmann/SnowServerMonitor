@@ -6,7 +6,6 @@ $Date = Get-Date -Format "yyyy-MM-dd".ToString()
 
 # Clean out old logs and stats file
 Get-ChildItem -Path $Path -Recurse -Include "*.log" | Where-Object { !$_.PSIsContainer -and $_.CreationTime -lt $limit } | Remove-Item -Force
-if(Test-Path -Path $StatsFile) { Remove-Item -Path $StatsFile -Force }
 
 # Search and output results
 Foreach ($sw in $searchWords)
