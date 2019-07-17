@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ImportService;
-using Newtonsoft.Json;
 using HelperLibrary.Models;
 
 namespace ServerMonitorAPI.Controllers
@@ -25,7 +21,7 @@ namespace ServerMonitorAPI.Controllers
 
             var tasks = new[]
             {
-                Task.Run(() => ImportService.Import.Process(serverlog))
+                Task.Run(() => ImportService.Import.Process(serverLogs))
             };            
 
             return Ok("ok");            
