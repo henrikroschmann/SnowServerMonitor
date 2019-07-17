@@ -25,7 +25,7 @@ namespace ServerMonitorAPI.Controllers
 
             var tasks = new[]
             {
-                Task.Run(() => ImportService.Import.Process(serverlog))
+                Task.Run(() => ImportService.Import.Process(serverLogs))
             };            
 
             return Ok("ok");            
