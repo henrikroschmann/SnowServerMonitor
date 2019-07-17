@@ -23,9 +23,13 @@ namespace ServerMonitorAPI.Controllers
                 throw new ArgumentNullException(nameof(serverLogs));
             }
 
-            Import.Process(serverLogs);
+            var tasks = new[]
+            {
+                Task.Run(() => ImportService.Import.Process(serverlog))
+            };            
 
-            return Json(serverLogs);
-        }
+            return Ok("ok");            
+        }       
+
     }
 }

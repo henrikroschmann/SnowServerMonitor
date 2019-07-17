@@ -9,11 +9,6 @@ namespace HelperLibrary
 {
     public static class Tools
     {
-        public static string GetConnectionString(string name = "DapperDB")
-        {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
-        }
-
         public static DataTable ConvertToDataTable<T>(IList<T> data)
         {
             PropertyDescriptorCollection properties =
