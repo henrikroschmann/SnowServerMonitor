@@ -5,33 +5,33 @@ export class FetchData extends Component {
 
   constructor (props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+      this.state = { serverlogs: [], loading: true };
 
-    fetch('api/SampleData/WeatherForecasts')
+    fetch('api/serverlog')
       .then(response => response.json())
       .then(data => {
-        this.setState({ forecasts: data, loading: false });
+        this.setState({ serverlogs: data, loading: false });
       });
-  }
-
-  static renderForecastsTable (forecasts) {
+  }    
+  static renderServerLogsTable (serverlogs) {
     return (
       <table className='table table-striped'>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+                    <th>serverName</th>
+                    <th>Date</th>
+                    <th>Service</th>
+                    <th>LineNumber</th>
+                    <th>Line</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.dateFormatted}>
-              <td>{forecast.dateFormatted}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+            {serverlogs.map(serverlog =>
+                <tr key={serverlog.serverName}>
+                    <td>{serverlog.date}</td>
+                    <td>{serverlog.service}</td>
+                    <td>{serverlog.lineNumber}</td>
+                    <td>{serverlog.line}</td>
             </tr>
           )}
         </tbody>
@@ -42,7 +42,7 @@ export class FetchData extends Component {
   render () {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+        : FetchData.renderServerLogsTable(this.state.serverlogs);
 
     return (
       <div>
