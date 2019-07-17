@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HelperLibrary.Models;
 using HelperLibrary;
+using Serilog;
 
 namespace ServerMonitorAPI.Controllers
 {
@@ -20,12 +21,18 @@ namespace ServerMonitorAPI.Controllers
                 throw new ArgumentNullException(nameof(serverLogs));
             }
 
-            var tasks = new[]
-            {
-                Task.Run(() => ProcessingData(serverLogs))
-            };            
+            var result = Task.Run(() => ProcessingData(serverLogs));
 
-            return Ok("ok");            
+            if(result.Status == TaskStatus.RanToCompletion)
+            {
+                return Ok("ok");
+            } else
+            {
+                Log.Error("Something went wrong with the task");
+                return StatusCode(500);
+            }
+
+            
         }       
 
         private void ProcessingData(List<ServerLog> logs)
