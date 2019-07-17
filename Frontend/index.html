@@ -1,0 +1,56 @@
+﻿<!DOCTYPEhtml>
+<htmlng-apphtmlng-app ="testModule">
+
+    <head>
+        <scriptsrcscriptsrc ="Scripts/angular.min.js">
+            </script>
+            <scriptsrcscriptsrc ="Scripts/js/Script.js">
+                </script>
+                <title></title>
+                <metacharsetmetacharset ="utf-8" />
+    </head>
+
+    <body>
+        <divng-controllerdivng-controller ="testController">
+            <tablebordertableborder ="1">
+                <thead>
+                    <tr>
+                        <th>
+                            Student Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                    </tr>
+                </thead>
+                <trng-repeattrng-repeat ="sinstudents">
+                    <td>
+                        {{s.serverName}}
+                    </td>
+                    <td>
+                        {{s.Date}}
+                    </td>
+                    <td>
+                        {{s.Service}}
+                    </td>
+                    <td>
+                        {{s.LineNumber}}
+                    </td>
+                    <td>
+                        {{s.Line}}
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+    </body>
+
+    </html>
