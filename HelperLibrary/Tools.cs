@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Configuration;
 using System.Data;
 using System.ComponentModel;
-using System.Configuration;
 
 namespace HelperLibrary
 {
@@ -23,11 +24,6 @@ namespace HelperLibrary
                 table.Rows.Add(row);
             }
             return table;
-        }
-
-        public static string GetConnectionString(string name = "DapperDB")
-        {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
     }
 }
