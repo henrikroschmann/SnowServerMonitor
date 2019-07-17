@@ -1,19 +1,14 @@
-﻿using CsvHelper;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelperLibrary;
-using System.Data;
-using System.ComponentModel;
-
-namespace ImportService
+﻿namespace ImportService
 {
-    static class Program
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
+
+    internal static class Program
     {
-        static void Main(string[] args)
+        public static readonly string ExecutablePath = Assembly.GetExecutingAssembly().Location;
+
+        static void Main()
         {
             List<Mapper.ServerLogMapper> Logs = new List<Mapper.ServerLogMapper>();
 

@@ -10,7 +10,7 @@ namespace ImportService
     {
         public static void InsertDataSet(DataTable data)
         {
-            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
             {
                 var records = data;
                 var p = new
@@ -23,9 +23,6 @@ namespace ImportService
             }
         }
 
-        public static string GetConnectionString(string name = "DapperDB")
-        {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
-        }
+
     }
 }
