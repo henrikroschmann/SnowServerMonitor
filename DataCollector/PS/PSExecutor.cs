@@ -1,41 +1,95 @@
-﻿using System.Management.Automation;
-using System.Collections.ObjectModel;
-using System.Timers;
-using System;
+﻿using DataCollector.Helpers;
+using Quartz;
 using Serilog;
-using System.Reflection;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Management.Automation;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace DataCollector.PS
 {
-    public class PSExecutor
+    public class PSExecutor : IJob
     {
-        public static readonly string ExecutablePath = Assembly.GetExecutingAssembly().Location;
-
-        readonly Timer _timer;
-
-        public PSExecutor()
-        {
-            _timer = new Timer(1000) { AutoReset = true };
-            _timer.Elapsed += (sender, eventArgs) => RunPSScript();
-        }
+        private const string PowerShellExecutionPolicy = @"try{
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+}
+catch
+{
+    Write-Warning \""Unable to set ExecutionPolicy\"" 
+}";
 
         private void RunPSScript()
         {
-            var currentPath = Path.GetDirectoryName(ExecutablePath);
-            var logPath = Path.Combine(Path.Combine(currentPath, "Logs"), "DataCollector_");
-            Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Information()
-            .WriteTo.Console()
-            .WriteTo.File(logPath,
-            rollingInterval: RollingInterval.Day,
-            rollOnFileSizeLimit: true)
-            .CreateLogger();
+            try
+            {
+                using(PowerShell PSInstance = PowerShell.Create())
+                {
+                    Collection<PSObject> results = null;
+                    Collection<ErrorRecord> errors = null;
 
+                    var infoCommands = new[]
+                    {
+                        GetScript("LogDataCollect.ps")
+                    };
+                    var script = infoCommands.ToCSV(Environment.NewLine);
+                    //Escape all code-related curly braces..
+                    script = Regex.Replace(script, @"{\D", @"{$&");
+                    script = Regex.Replace(script, @"\D}", @"$&}");
+                    //"Xxxx cannot be loaded because running scripts is disabled on this system."
+                    //Start the script by adjusting the ExecutionPolicy:
+                    script = PowerShellExecutionPolicy + script;
+
+                    Log.Debug("Running script: \r\n" + script);
+
+                    results = PSInstance.Invoke<PSObject>();
+                    errors = PSInstance.Streams.Error.ReadAll();
+
+                    if(errors.Any())
+                    {
+                        foreach(var errorRecord in errors)
+                        {
+                            Log.Error("The Powershell script failed with the following error: " + errorRecord);
+                        }
+                    }
+                }
+            } catch (Exception e)
+            {
+                Log.Error(e, "Something went wrong when trying to run a PowerShell Script");
+            }
 
         }
 
-        public void Start() {  _timer.Start(); }
-        public void Stop() { _timer.Stop(); }
+        public Task Execute(IJobExecutionContext context)
+        {
+            var lastRun = context.PreviousFireTimeUtc?.DateTime.ToString() ?? string.Empty;
+            Log.Information("Executing PowerShell script!   Previous run: {lastRun}", lastRun);
+            RunPSScript();
+            return Task.CompletedTask;
+        }
+
+        private static string GetScript(string psFileName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = $"DataCollector.PS.{psFileName}";
+            var result = "";
+
+            using(var stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if(stream != null)
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        result = reader.ReadToEnd();
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
