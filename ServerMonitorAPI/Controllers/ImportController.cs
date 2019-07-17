@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ImportService;
 using Newtonsoft.Json;
+using HelperLibrary.Models;
 
 namespace ServerMonitorAPI.Controllers
 {
@@ -15,11 +16,11 @@ namespace ServerMonitorAPI.Controllers
     {        
         // POST: api/Import
         [HttpPost]
-        public IActionResult Index([FromBody] HelperLibrary.Models.ServerLog[] serverlog)
+        public IActionResult Index([FromBody] List<ServerLog> serverLogs)
         {
-            if (serverlog == null)
+            if (serverLogs == null)
             {
-                throw new ArgumentNullException(nameof(serverlog));
+                throw new ArgumentNullException(nameof(serverLogs));
             }
 
             var tasks = new[]

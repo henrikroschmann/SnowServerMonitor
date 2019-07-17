@@ -1,19 +1,14 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
-using System;
+﻿using HelperLibrary.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImportService
 {
-    public class Import
+    public static class Import
     {
-        public static void Process(HelperLibrary.Models.ServerLog[] data)
+        public static void Process(List<ServerLog> data)
         {
-            Database.InsertDataSet(HelperLibrary.Tools.ConvertToDataTable(data.ToList()));          
-                
+            Database.InsertDataSet(HelperLibrary.Tools.ConvertToDataTable(data));
         }       
     }
 }
