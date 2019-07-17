@@ -19,8 +19,7 @@ namespace ServerMonitorAPI.Database
                 return records;
             }
         }
-
-        // TODO: change type of date
+        
         public static List<ServerLog> MapMultipleObjectsWithParam(string server, string date)
         {
             using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
@@ -36,6 +35,17 @@ namespace ServerMonitorAPI.Database
 
                 return records;
                 
+            }
+        }
+
+        public static List<Servers> GetServerList()
+        {
+            using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
+            {
+                string sql = @"select distinct servername from ServerLog";
+                List<Servers> records = cnn.Query<Servers>(sql).AsList();
+
+                return records;
             }
         }
     }

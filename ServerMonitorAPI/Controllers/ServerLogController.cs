@@ -1,47 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ServerMonitorAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServerLogController : ControllerBase
+    public class ServerLogController : Controller
     {
         // GET: api/ServerLog
         [HttpGet]
-        public IEnumerable<string> Get()
+        public JsonResult Get()
         {
-            Database.DBGetData.MapMultipleObjects();
-            return new string[] { "value1", "value2" };
+            return Json(Database.DBGetData.MapMultipleObjects());
         }
 
-        // GET: api/ServerLog/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        // GET: api/ServerLog/search?server=foot&date=bar
+        [HttpGet("Search")]        
+        public JsonResult Get(string server, string date)
         {
-            return "value";
-        }
-
-        // POST: api/ServerLog
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/ServerLog/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+            return Json(Database.DBGetData.MapMultipleObjectsWithParam(server, date));
+        }      
     }
 }
