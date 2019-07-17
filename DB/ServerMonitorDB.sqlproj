@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>DB</Name>
+    <Name>ServerMonitorDB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{51dc7b8c-71cd-4235-a890-71a4f12ba9ba}</ProjectGuid>
@@ -66,5 +66,10 @@
   <ItemGroup>
     <Build Include="dbo\Tables\ServerLog.sql" />
     <Build Include="dbo\Stored Procedures\spServerLog_Search.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertLogs.sql" />
+    <Build Include="dbo\Types\BasicUDT.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PublishProfiles\ServerMonitorDB.publish.xml" />
   </ItemGroup>
 </Project>
