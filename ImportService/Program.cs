@@ -29,8 +29,7 @@ namespace ImportService
                     Logs.Add(Record);
                 }
             }
-            Database.InsertDataSet(HelperLibrary.Tools.ConvertToDataTable(Logs));                       
-           
+            Database.InsertDataSet(HelperLibrary.Tools.ConvertToDataTable(Logs));                                  
         }
     }
 }
