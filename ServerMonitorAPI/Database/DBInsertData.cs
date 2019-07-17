@@ -1,12 +1,11 @@
-﻿using System.Configuration;
+﻿using Dapper;
+using HelperLibrary;
 using System.Data;
 using System.Data.SqlClient;
-using Dapper;
-using HelperLibrary;
 
-namespace ImportService
+namespace ServerMonitorAPI.Database
 {
-    public static class Database
+    public static class DBInsertData
     {
         public static void InsertDataSet(DataTable data)
         {
@@ -22,7 +21,5 @@ namespace ImportService
 
             }
         }
-
-
     }
 }

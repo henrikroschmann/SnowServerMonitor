@@ -8,15 +8,13 @@ namespace ServerMonitorAPI
 {
     public class Startup
     {
-        public IConfigurationRoot Configuration { get; set; }
-        public static string ConnectionString { get; private set; }
-        public Startup(IHostingEnvironment env)
+
+        public Startup(IConfiguration configuration)
         {
-            Configuration = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .Build();
+            Configuration = configuration;
         }        
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -40,7 +38,6 @@ namespace ServerMonitorAPI
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            ConnectionString = Configuration["ConnectionStrings:DapperDB"];
         }
     }
 }
