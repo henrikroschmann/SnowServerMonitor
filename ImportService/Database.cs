@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 using HelperLibrary;
@@ -9,7 +10,7 @@ namespace ImportService
     {
         public static void InsertDataSet(DataTable data)
         {
-            using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
+            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
                 var records = data;
                 var p = new
@@ -20,6 +21,11 @@ namespace ImportService
                 cnn.Execute("dbo.spInsertLogs", p, commandType: CommandType.StoredProcedure);
 
             }
+        }
+
+        public static string GetConnectionString(string name = "DapperDB")
+        {
+            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
     }
 }

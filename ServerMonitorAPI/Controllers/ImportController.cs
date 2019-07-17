@@ -22,16 +22,13 @@ namespace ServerMonitorAPI.Controllers
                 throw new ArgumentNullException(nameof(serverlog));
             }
 
-            FileImport(serverlog);
+            var tasks = new[]
+            {
+                Task.Run(() => ImportService.Import.Process(serverlog))
+            };            
 
-            return Json(serverlog);
-        }
-
-        public void FileImport(HelperLibrary.Models.ServerLog[] logrows)
-        {
-            ImportService.Import.Process(logrows);
-        }
-        
+            return Ok("ok");            
+        }       
 
     }
 }
