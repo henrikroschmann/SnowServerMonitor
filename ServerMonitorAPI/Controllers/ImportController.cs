@@ -18,21 +18,20 @@ namespace ServerMonitorAPI.Controllers
         {
             if (serverLogs == null)
             {
-                throw new ArgumentNullException(nameof(serverLogs));
+                Log.Error("Content was empty!");
+                return NoContent();
             }
-
-            var result = Task.Run(() => ProcessingData(serverLogs));
-
-            if(result.Status == TaskStatus.RanToCompletion)
+            try
             {
-                return Ok("ok");
-            } else
+                var task = new [] {
+                    Task.Run(() => ProcessingData(serverLogs)) 
+                };
+            } catch (Exception ex)
             {
-                Log.Error("Something went wrong with the task");
-                return StatusCode(500);
+                Log.Error(ex, "Something went wrong!");
             }
-
             
+            return Ok("ok");            
         }       
 
         private void ProcessingData(List<ServerLog> logs)
