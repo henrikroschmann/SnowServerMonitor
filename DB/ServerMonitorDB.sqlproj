@@ -68,6 +68,8 @@
     <Build Include="dbo\Stored Procedures\spServerLog_Search.sql" />
     <Build Include="dbo\Stored Procedures\spInsertLogs.sql" />
     <Build Include="dbo\Types\BasicUDT.sql" />
+    <Build Include="dbo\Tables\Servers.sql" />
+    <Build Include="dbo\Stored Procedures\spServerDataAnalysis.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\ServerMonitorDB.publish.xml" />

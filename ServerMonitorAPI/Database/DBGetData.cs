@@ -43,6 +43,10 @@ namespace ServerMonitorAPI.Database
             using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
             {
                 string sql = @"select distinct servername from ServerLog";
+                // TODO: Create a query that will return list of servers and 
+                // if they have issues report it and so on 
+                // Example: Server1 larms and top three warnings ??
+
                 List<Servers> records = cnn.Query<Servers>(sql).AsList();
 
                 return records;

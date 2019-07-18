@@ -7,5 +7,6 @@ namespace HelperLibrary.Models
     public class Servers
     {
         public string Name { get; set; }
+        public int Warnings { get; set; }
     }
 }
