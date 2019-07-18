@@ -30,7 +30,8 @@
                             .WriteTo.Console()
                             .WriteTo.File(logPath,
                             rollingInterval: RollingInterval.Day,
-                            rollOnFileSizeLimit: true)
+                            rollOnFileSizeLimit: true,
+                            fileSizeLimitBytes: 5000_000)
                             .CreateLogger();
 
                             x.UseSerilog(Log.Logger);
