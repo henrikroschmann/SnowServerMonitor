@@ -86,7 +86,7 @@ catch
 
         public Task Execute(IJobExecutionContext context)
         {
-            url = "http://localhost:59319/api/Import";
+            url = "https://localhost:44321/api/Import";
             var lastRun = context.PreviousFireTimeUtc?.DateTime.ToString() ?? string.Empty;
             Log.Information("Executing PowerShell script!   Previous run: {lastRun}", lastRun);
             var serverLogs = RunPSScript();
@@ -94,7 +94,21 @@ catch
             var jsonData = JsonConvert.SerializeObject(serverLogs);
             Log.Information("Posting data to API");
             var response = PostData.PostRequest(url, jsonData);
-            Log.Information("Response from API: " + response);
+            if(response.Errors.Any())
+            {
+                Log.Error("The following errors were encountered during POST call:");
+                foreach(var error in response.Errors)
+                {
+                    Log.Error($"ERROR: Message '{error}'");
+                }
+            } else
+            {
+                Log.Information("Successfully posted data to API with the following messages:");
+                foreach(var result in response.Results)
+                {
+                    Log.Information($"SUCCESS: Response code '{result}'");
+                }
+            }            
             return Task.CompletedTask;
         }
 

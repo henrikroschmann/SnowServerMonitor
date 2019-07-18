@@ -13,7 +13,7 @@
         static void Main()
         {
             var currentPath = Path.GetDirectoryName(ExecutablePath);
-            var logPath = Path.Combine(Path.Combine(currentPath, "Logs"), "DataCollector");
+            var logPath = Path.Combine(Path.Combine(currentPath, "Logs"), "DataCollector.log");
 
             var rc = HostFactory.Run(x =>
                         {
@@ -30,7 +30,8 @@
                             .WriteTo.Console()
                             .WriteTo.File(logPath,
                             rollingInterval: RollingInterval.Day,
-                            rollOnFileSizeLimit: true)
+                            rollOnFileSizeLimit: true,
+                            fileSizeLimitBytes: 5000_000)
                             .CreateLogger();
 
                             x.UseSerilog(Log.Logger);
