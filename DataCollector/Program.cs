@@ -13,7 +13,7 @@
         static void Main()
         {
             var currentPath = Path.GetDirectoryName(ExecutablePath);
-            var logPath = Path.Combine(Path.Combine(currentPath, "Logs"), "DataCollector");
+            var logPath = Path.Combine(Path.Combine(currentPath, "Logs"), "DataCollector.log");
 
             var rc = HostFactory.Run(x =>
                         {
