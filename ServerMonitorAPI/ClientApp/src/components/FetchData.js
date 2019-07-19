@@ -1,5 +1,7 @@
 
 import React, { Component } from 'react';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -29,7 +31,7 @@ export class FetchData extends Component {
         <tbody>
           {serverlogs.map(serverlog =>
             <tr key={serverlog.serverName}>
-              <td>{serverlog.date}</td>
+              <td><Moment format="YYYY-MM-DD">{serverlog.date}</Moment></td>
               <td>{serverlog.service}</td>
               <td>{serverlog.lineNumber}</td>
               <td>{serverlog.line}</td>
