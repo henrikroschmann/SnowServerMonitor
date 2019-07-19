@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Servers]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [ServerName] NVARCHAR(MAX) NOT NULL, 
-    [Warnings] INT NOT NULL, 
-    [Date] DATE NOT NULL
+    [StartTime] DATETIME NOT NULL, 
+    [Duration] INT NOT NULL
 )

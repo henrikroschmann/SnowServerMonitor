@@ -71,8 +71,13 @@
     <Build Include="dbo\Tables\Servers.sql" />
     <Build Include="dbo\Stored Procedures\spServerDataAnalysis.sql" />
     <Build Include="dbo\Stored Procedures\spServerOverview.sql" />
+    <Build Include="dbo\Types\DujUDT.sql" />
+    <Build Include="dbo\Stored Procedures\spDUjInsertLogs.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\ServerMonitorDB.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ServerMonitorDB.refactorlog" />
   </ItemGroup>
 </Project>
