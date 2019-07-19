@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
 
@@ -6,6 +7,7 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
+      this.state = { serverlogs: [], loading: true };
 
 
 
