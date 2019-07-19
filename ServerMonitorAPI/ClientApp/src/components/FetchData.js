@@ -1,5 +1,7 @@
 
 import React, { Component } from 'react';
+import Moment from 'react-moment';
+import 'moment-timezone';
 import Chart from "react-apexcharts";
 
 export class FetchData extends Component {

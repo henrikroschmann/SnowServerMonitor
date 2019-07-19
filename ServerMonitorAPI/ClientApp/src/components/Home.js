@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './default.css';
+import Moment from 'react-moment';
+import 'moment-timezone';
+import { ServerResponse } from 'http';
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -19,7 +22,7 @@ export class Home extends Component {
             <div className="card">
                 {servers.map(server =>
                     <a href={'/fetch-data/search?server=' + server.servername + '&date=' + server.date}>
-                        <h2>{server.servername} <i>{server.date}</i></h2>
+                        <h2>{server.servername} <i><Moment format="YYYY-MM-DD">{server.date}</Moment></i></h2>
                         <p>{server.result}</p>
                     </a>
 
