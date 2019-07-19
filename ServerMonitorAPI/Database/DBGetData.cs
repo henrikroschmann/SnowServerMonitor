@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 using HelperLibrary;
+using HelperLibrary.Models;
 using ServerMonitorAPI.Models;
 
 namespace ServerMonitorAPI.Database
