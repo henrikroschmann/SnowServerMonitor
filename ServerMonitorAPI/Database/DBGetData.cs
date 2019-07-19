@@ -47,5 +47,16 @@ namespace ServerMonitorAPI.Database
                 return records;
             }
         }
+
+        // TODO: Add critera string Servername and update the query
+        public static List<DujRuns> GetDujRuns()
+        {
+            using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
+            {
+                string sql = @"select servername, StartTime, Duration from servers";
+                List<DujRuns> records = cnn.Query<DujRuns>(sql).AsList();
+                return records;                
+            }
+        }
     }
 }

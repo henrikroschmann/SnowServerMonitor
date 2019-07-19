@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ServerMonitorAPI.Controllers
 {
@@ -29,8 +30,14 @@ namespace ServerMonitorAPI.Controllers
         [HttpGet("getChart")]
         public JsonResult ServerChart()
         {
-            int[] array = new int[] { 405, 588, 321, 335, 335 };
-            return Json(array);
+            List<int> _result = new List<int>();
+            var result = Database.DBGetData.GetDujRuns();            
+            foreach (var item in result)
+            {
+                _result.Add(item.Duration);
+            }
+
+            return Json(_result);
         }
     }
 }

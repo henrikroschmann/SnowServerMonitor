@@ -41,7 +41,8 @@ export class FetchData extends Component {
       .then(data => {
         this.state.series.map((s) => {
           s.data.map(() => {
-            return data
+              return data
+              console.log(data);
           })
           newDataSeries.push({ data, name: s.name })
 
