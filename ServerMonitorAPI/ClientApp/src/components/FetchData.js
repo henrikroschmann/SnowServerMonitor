@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
-import Moment from 'react-moment';
 import 'moment-timezone';
 import Chart from "react-apexcharts";
+import { Server } from 'tls';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -12,6 +12,7 @@ export class FetchData extends Component {
 
     const newDataSeries = [];
 
+    // Default states
     this.state = {
       serverlogs: [],
       loading: true,
@@ -25,10 +26,11 @@ export class FetchData extends Component {
         }
       },
       series: [{
-        name: 'series-1',
+        name: 'DUJ timings',
         data: [0, 0, 0, 0, 0]
       }]
     };
+
 
     fetch('/api/serverlog/search' + this.props.location.search)
       .then(response => response.json())
@@ -39,8 +41,8 @@ export class FetchData extends Component {
     fetch('/api/serverlog/getChart' + this.props.location.search)
       .then(response => response.json())
       .then(data => {
-        this.state.series.map((s) => {
-          s.data.map(() => {
+          this.state.series.map((s) => {
+            s.data.map(() => {
             return data
           })
           newDataSeries.push({ data, name: s.name })
@@ -53,11 +55,12 @@ export class FetchData extends Component {
 
   static renderServerLogsTable(serverlogs) {
     return (
-      <div>
+      <div className="table-div">
 
         <table className='table table-striped'>
           <thead>
             <tr>
+              <th>Server</th>
               <th>Date</th>
               <th>Service</th>
               <th>LineNumber</th>
@@ -66,12 +69,13 @@ export class FetchData extends Component {
           </thead>
           <tbody>
             {serverlogs.map(serverlog =>
-              <tr key={serverlog.serverName}>
+            <tr key={serverlog.id}>
+                <td>{serverlog.serverName}</td>
                 <td>{serverlog.date}</td>
                 <td>{serverlog.service}</td>
                 <td>{serverlog.lineNumber}</td>
                 <td>{serverlog.line}</td>
-              </tr>
+            </tr>
             )}
           </tbody>
         </table>

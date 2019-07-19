@@ -29,7 +29,7 @@ namespace ServerMonitorAPI.Controllers
         [HttpGet("getChart")]
         public JsonResult ServerChart()
         {
-            int[] array = new int[] { 405, 588, 321, 335, 335 };
+            int[] array = new int[] { 405, 588, 321, 335, 340 };
             return Json(array);
         }
     }
