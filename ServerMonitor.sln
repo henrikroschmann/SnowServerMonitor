@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelperLibrary", "HelperLibr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerMonitorAPI", "ServerMonitorAPI\ServerMonitorAPI.csproj", "{651ACCC2-33E5-44B9-AD28-847B3FB07078}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Frontend", "Frontend\Frontend.njsproj", "{EDE00358-2D80-437C-A9E0-0828D6F4F6B5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCollector", "DataCollector\DataCollector.csproj", "{BEAC7961-F335-4230-9830-7DFBF2A0CD27}"
 EndProject
 Global
@@ -33,10 +31,6 @@ Global
 		{651ACCC2-33E5-44B9-AD28-847B3FB07078}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{651ACCC2-33E5-44B9-AD28-847B3FB07078}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{651ACCC2-33E5-44B9-AD28-847B3FB07078}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDE00358-2D80-437C-A9E0-0828D6F4F6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDE00358-2D80-437C-A9E0-0828D6F4F6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDE00358-2D80-437C-A9E0-0828D6F4F6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDE00358-2D80-437C-A9E0-0828D6F4F6B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEAC7961-F335-4230-9830-7DFBF2A0CD27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BEAC7961-F335-4230-9830-7DFBF2A0CD27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEAC7961-F335-4230-9830-7DFBF2A0CD27}.Release|Any CPU.ActiveCfg = Release|Any CPU

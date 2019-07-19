@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HelperLibrary.Models;
 using HelperLibrary;
+using Serilog;
 
 namespace ServerMonitorAPI.Controllers
 {
@@ -17,14 +18,19 @@ namespace ServerMonitorAPI.Controllers
         {
             if (serverLogs == null)
             {
-                throw new ArgumentNullException(nameof(serverLogs));
+                Log.Error("Content was empty!");
+                return NoContent();
             }
-
-            var tasks = new[]
+            try
             {
-                Task.Run(() => ProcessingData(serverLogs))
-            };            
-
+                var task = new [] {
+                    Task.Run(() => ProcessingData(serverLogs)) 
+                };
+            } catch (Exception ex)
+            {
+                Log.Error(ex, "Something went wrong!");
+            }
+            
             return Ok("ok");            
         }       
 
