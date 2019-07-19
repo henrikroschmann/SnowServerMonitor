@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using HelperLibrary;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -18,6 +19,21 @@ namespace ServerMonitorAPI.Database
                 };
 
                 cnn.Execute("dbo.spInsertLogs", p, commandType: CommandType.StoredProcedure);
+
+            }
+        }
+
+        internal static void InsertDujSet(DataTable dataTable)
+        {
+            using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
+            {
+                var records = dataTable;
+                var p = new
+                {
+                    records = records.AsTableValuedParameter("DujUDT")
+                };
+
+                cnn.Execute("dbo.spDUjInsertLogs", p, commandType: CommandType.StoredProcedure);
 
             }
         }

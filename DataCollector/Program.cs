@@ -1,5 +1,6 @@
 ﻿namespace DataCollector
 {
+    using DataCollector.DB;
     using Serilog;
     using System;
     using System.IO;
@@ -10,7 +11,7 @@
     {
         public static readonly string ExecutablePath = Assembly.GetExecutingAssembly().Location;
 
-        static void Main()
+        static async System.Threading.Tasks.Task Main()
         {
             var currentPath = Path.GetDirectoryName(ExecutablePath);
             var logPath = Path.Combine(Path.Combine(currentPath, "Logs"), "DataCollector.log");
@@ -20,6 +21,12 @@
                             x.Service<PS.PSScheduleService>(s =>
                             {
                                 s.ConstructUsing(name => new PS.PSScheduleService());
+                                s.WhenStarted(tc => tc.Start());
+                                s.WhenStopped(tc => tc.Stop());
+                            });
+                            x.Service<DB.DBScheduleService>(s =>
+                            {
+                                s.ConstructUsing(name => new DB.DBScheduleService());
                                 s.WhenStarted(tc => tc.Start());
                                 s.WhenStopped(tc => tc.Stop());
                             });
@@ -41,9 +48,10 @@
                             x.SetServiceName("SnowLogCollector");
                         });
 
-                        var exitCode = (int)Convert.ChangeType(rc, rc.GetTypeCode());
-                        Environment.ExitCode = exitCode;
-                        
+            var exitCode = (int)Convert.ChangeType(rc, rc.GetTypeCode());
+            Environment.ExitCode = exitCode;
+
+
         }
         
     }
