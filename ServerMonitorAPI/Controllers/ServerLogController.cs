@@ -25,5 +25,12 @@ namespace ServerMonitorAPI.Controllers
         {
             return Json(Database.DBGetData.GetServerList());
         }
+
+        [HttpGet("getChart")]
+        public JsonResult ServerChart()
+        {
+            int[] array = new int[] { 405, 588, 321, 335, 335 };
+            return Json(array);
+        }
     }
 }

@@ -7,55 +7,55 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-      this.state = { serverlogs: [], loading: true };
 
-
+    const newDataSeries = [];
 
     this.state = {
-      serverlogs: [], loading: true,
+      serverlogs: [],
+      loading: true,
+      chartloading: true,
       options: {
         chart: {
-          id: "basic-bar"
+          id: 'DUJ Times last 5'
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+          categories: [1, 2, 3, 4, 5]
         }
       },
-      series: [
-        {
-          name: "series-1",
-          data: [30, 40, 45, 50, 49, 60, 70, 91]
-        }
-      ]
+      series: [{
+        name: 'series-1',
+        data: [0, 0, 0, 0, 0]
+      }]
     };
 
-
-    fetch('api/serverlog')
+    fetch('/api/serverlog/search' + this.props.location.search)
       .then(response => response.json())
       .then(data => {
         this.setState({ serverlogs: data, loading: false });
       });
+
+    fetch('/api/serverlog/getChart' + this.props.location.search)
+      .then(response => response.json())
+      .then(data => {
+        this.state.series.map((s) => {
+          s.data.map(() => {
+            return data
+          })
+          newDataSeries.push({ data, name: s.name })
+
+        })
+        this.setState({ series: newDataSeries, chartloading: false });
+      });
+
   }
+
   static renderServerLogsTable(serverlogs) {
     return (
       <div>
-        <div className="app">
-          <div className="row">
-            <div className="mixed-chart">
-              <Chart
-                options={this.state.options}
-                series={this.state.series}
-                type="bar"
-                width="500"
-              />
-            </div>
-          </div>
-        </div>
 
         <table className='table table-striped'>
           <thead>
             <tr>
-              <th>serverName</th>
               <th>Date</th>
               <th>Service</th>
               <th>LineNumber</th>
@@ -73,6 +73,25 @@ export class FetchData extends Component {
             )}
           </tbody>
         </table>
+
+      </div>
+
+    );
+  }
+
+  static renderChart(options, series) {
+    return (
+      <div className="app">
+        <div className="row">
+          <div className="mixed-chart">
+            <Chart
+              options={options}
+              series={series}
+              type="line"
+              width="500"
+            />
+          </div>
+        </div>
       </div>
     );
   }
@@ -81,14 +100,16 @@ export class FetchData extends Component {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
       : FetchData.renderServerLogsTable(this.state.serverlogs);
+    let chart = this.state.chartloading
+      ? <p><em>Loading Chart...</em></p>
+      : FetchData.renderChart(this.state.options, this.state.series);
 
     return (
-
       <div>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script src="https://cdn.jsdelivr.net/npm/react-apexcharts"></script>
-        <h1>Server</h1>
-
+        <h1>ServerMonitor</h1>
+        {chart}
         {contents}
       </div>
     );
