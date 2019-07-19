@@ -5,7 +5,8 @@ AS
 begin
 	set nocount on;
 
-	select	s.ServerName, 
+	select	s.Id,
+			s.ServerName, 
 			s.Date, 
 			s.Service,
 			s.LineNumber,

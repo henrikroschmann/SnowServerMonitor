@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './default.css';
 import Moment from 'react-moment';
 import 'moment-timezone';
-import { ServerResponse } from 'http';
 
 export class Home extends Component {
     static displayName = Home.name;
