@@ -41,9 +41,8 @@ namespace ServerMonitorAPI.Database
         public static List<Servers> GetServerList()
         {
             using (IDbConnection cnn = new SqlConnection(Tools.GetConnectionString()))
-            {
-                string sql = @"select distinct servername from ServerLog";
-                List<Servers> records = cnn.Query<Servers>(sql).AsList();
+            {                
+                List<Servers> records = cnn.Query<Servers>("dbo.spServerOverview").AsList();
 
                 return records;
             }

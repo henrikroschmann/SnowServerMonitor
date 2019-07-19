@@ -6,6 +6,8 @@ namespace HelperLibrary.Models
 {
     public class Servers
     {
-        public string Name { get; set; }
+        public string Servername { get; set; }
+        public DateTime Date { get; set; }
+        public string Result { get; set; }
     }
 }

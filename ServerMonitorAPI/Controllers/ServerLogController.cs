@@ -19,5 +19,11 @@ namespace ServerMonitorAPI.Controllers
         {
             return Json(Database.DBGetData.MapMultipleObjectsWithParam(server, date));
         }      
+
+        [HttpGet("Servers")]
+        public JsonResult ServerList()
+        {
+            return Json(Database.DBGetData.GetServerList());
+        }
     }
 }
