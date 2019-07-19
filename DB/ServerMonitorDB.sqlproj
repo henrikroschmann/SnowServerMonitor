@@ -70,6 +70,7 @@
     <Build Include="dbo\Types\BasicUDT.sql" />
     <Build Include="dbo\Tables\Servers.sql" />
     <Build Include="dbo\Stored Procedures\spServerDataAnalysis.sql" />
+    <Build Include="dbo\Stored Procedures\spServerOverview.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\ServerMonitorDB.publish.xml" />

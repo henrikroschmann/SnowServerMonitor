@@ -155,6 +155,7 @@
       flex-flow: column nowrap;
       align-items: stretch;
       justify-content: space-between;
+      
     }
     .dashboard .col .card {
       display: flex;

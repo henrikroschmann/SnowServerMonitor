@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './default.css';
+import { ServerResponse } from 'http';
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -8,7 +9,7 @@ export class Home extends Component {
         super(props);
         this.state = { servers: [], loading: true };
 
-        fetch('api/serverlog')
+        fetch('api/serverlog/Servers')
             .then(response => response.json())
             .then(data => {
                 this.setState({ servers: data, loading: false });
@@ -16,26 +17,14 @@ export class Home extends Component {
     }
     static renderServerList(servers) {
         return (
-            <div className="dashboard">
-                <div className="col">
-                    <div class="card flat small">
-                        <h1>ServerMonitor<span className="highlight">.</span></h1>
+            <div className="card">
+                {servers.map(server =>
+                    <a href={'/fetch-data/search?server=' + server.servername + '&date=' + server.date}>
+                        <h2>{server.servername} <i>{server.date}</i></h2>
+                        <p>{server.result}</p>
+                    </a>
 
-                    </div>
-
-                </div>
-                <div className="col">
-                    
-                    <div className="card">
-                        
-                        {servers.map(server =>
-                             server.warnings  < 0 ?
-                                <h2>{server.name}   </h2> :
-                                <h3>{server.name} </h3>                                                      
-                        )}
-
-                    </div>
-                </div>
+                )}
             </div>
         );
     }
@@ -48,8 +37,12 @@ export class Home extends Component {
         return (
             <div>
                 <h1>ServerMonitor</h1>
-                
-                {contents}
+                <div className="dashboard">
+                    <div className="col"></div>
+                    <div className="col">
+                        {contents}
+                    </div>
+                </div>
             </div>
         );
     }
